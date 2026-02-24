@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLAYER 1 | Portofolio Dev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* Variabel Warna Neon Arcade */
+        :root {
+            --bg-color: #0a0a0a;
+            --neon-green: #39ff14;
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff00ff;
+            --text-main: #e0e0e0;
+        }
+
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Efek Scanline TV Tabung (Retro) */
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none; z-index: 9999;
+        }
+
+        h1, h2, h3, .arcade-font { font-family: 'Press Start 2P', cursive; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Navigasi */
+        nav {
+            display: flex; justify-content: center; padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        nav ul { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        nav ul li a {
+            font-family: 'Press Start 2P', cursive; font-size: 0.6rem;
+            color: var(--neon-cyan); transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--neon-pink); text-shadow: 0 0 8px var(--neon-pink); }
+
+        /* Container Utama */
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Hero Section (Profil & Foto) */
+        .hero { text-align: center; margin-bottom: 60px; }
+        
+        /* FOTO PROFIL (Silakan ganti src fotonya) */
+        .profile-photo {
+            width: 150px; height: 150px; margin: 0 auto 20px auto;
+            border-radius: 50%; object-fit: cover;
+            border: 4px solid var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-green), inset 0 0 10px var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        .hero h1 { font-size: 1.5rem; color: var(--neon-green); margin-bottom: 10px; line-height: 1.4; }
+        .hero h2 { font-size: 0.8rem; color: var(--neon-cyan); margin-bottom: 20px; }
+        .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px auto; }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px var(--neon-green); }
+            50% { box-shadow: 0 0 25px var(--neon-green); }
+            100% { box-shadow: 0 0 10px var(--neon-green); }
+        }
+
+        /* Tombol Arcade */
+        .btn-arcade {
+            display: inline-block; padding: 15px 20px;
+            background-color: transparent; color: var(--neon-pink);
+            border: 2px solid var(--neon-pink);
+            font-family: 'Press Start 2P', cursive; font-size: 0.7rem;
+            text-transform: uppercase; cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-pink), inset 0 0 5px var(--neon-pink);
+            transition: 0.2s; margin-top: 10px;
+        }
+        .btn-arcade:hover, .btn-arcade:active {
+            background-color: var(--neon-pink); color: #000;
+            box-shadow: 0 0 20px var(--neon-pink); transform: scale(0.95);
+        }
+
+        /* Section Global */
+        .section-title {
+            text-align: center; font-size: 1.2rem; color: var(--neon-cyan);
+            margin-bottom: 30px; text-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        /* Skills/Keahlian */
+        .skills {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 60px;
+        }
+        .skill-badge {
+            padding: 10px 15px; border: 1px solid var(--neon-green);
+            color: var(--neon-green); font-size: 1rem; font-weight: bold;
+            background: rgba(57, 255, 20, 0.1);
+        }
+
+        /* Proyek Grid */
+        .projects { display: grid; gap: 20px; grid-template-columns: 1fr; margin-bottom: 60px; }
+        
+        /* Kartu Proyek ala Mesin Arcade */
+        .project-card {
+            background: #111; border: 2px solid #333; padding: 20px;
+            border-radius: 8px; position: relative; overflow: hidden;
+            transition: 0.3s;
+        }
+        .project-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        .project-card::before {
+            content: ">>"; position: absolute; top: 20px; left: 10px;
+            font-family: 'Press Start 2P', cursive; color: var(--neon-pink); font-size: 0.8rem;
+        }
+        .project-card h3 { font-size: 1rem; color: #fff; margin: 0 0 10px 30px; }
+        .project-tech { color: var(--neon-green); font-size: 0.85rem; margin-bottom: 15px; margin-left: 30px; }
+        .project-desc { font-size: 1rem; color: #ccc; margin-left: 30px; }
+
+        /* Footer */
+        footer {
+            text-align: center; padding: 40px 20px;
+            border-top: 2px dashed #333; margin-top: 40px;
+        }
+        footer p { margin-bottom: 20px; font-size: 1.1rem; }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* Desktop Mode (Layar Besar) */
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero h2 { font-size: 1.2rem; }
+            nav ul li a { font-size: 0.8rem; }
+            .projects { grid-template-columns: repeat(2, 1fr); }
+            .section-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#start">START</a></li>
+            <li><a href="#stats">STATS</a></li>
+            <li><a href="#quests">QUESTS</a></li>
+            <li><a href="#coop">INVITES</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="start" class="hero">
+            <p class="arcade-font blink" style="color: var(--neon-pink); font-size: 0.8rem; margin-bottom: 20px;">INSERT COIN...</p>
+            
+            <img src="foto-profil3.jpeg" alt="Player 1" class="profile-photo">
+            
+            <h1>Gallantry</h1>
+            <h2>LVL 99 | MOBILE & WEB DEV</h2>
+            <p>Saya mengembangkan aplikasi mobile dan sistem website dari nol. Terbiasa merancang antarmuka, mengelola database, hingga integrasi pemetaan spasial secara akurat.</p>
+            <a href="#coop" class="btn-arcade">PRESS START</a>
+        </section>
+
+        <section id="stats">
+            <h2 class="section-title">PLAYER STATS</h2>
+            <div class="skills">
+                <div class="skill-badge">Flutter</div>
+                <div class="skill-badge">Kotlin</div>
+                <div class="skill-badge">PHP & MySQL</div>
+                <div class="skill-badge">Geotagging</div>
+                <div class="skill-badge">GeoJSON & Maps</div>
+                <div class="skill-badge">HTML/CSS/JS</div>
+                <div class="skill-badge">API Integration</div>
+            </div>
+        </section>
+
+        <section id="quests">
+            <h2 class="section-title">COMPLETED QUESTS (Hanya Beberapa)</h2>
+            <div class="projects">
+                
+                <div class="project-card">
+                    <h3>Tallysheet Geo (BPDAS Kapuas)</h3>
+                    <p class="project-tech">KOTLIN | ANDROID | MAPS </p>
+                    <p class="project-desc">Aplikasi pendataan lapangan pintar. Memanfaatkan kamera untuk merekam koordinat lokasi (Geotagging) secara presisi. Dilengkapi filter pendataan spesifik seperti BIBIT KEBUN BIBIT RAKYAT (KBR) untuk monitoring instansi.</p>
+                </div>
+
+                <div class="project-card">
+                    <h3>[Proyek Lainnya]</h3>
+                    <p class="project-tech">JS | HTML | PHP | MYSQL | FLUTTER</p>
+                    <p class="project-desc">Versatile Developer dengan track record ratusan completed quests! Mulai dari membangun e-commerce, sistem informasi desa, portofolio interaktif, hingga pengembangan game dan aplikasi mobile. Telah mengeksekusi lebih dari 100+ proyek freelance dan akademis dengan cepat dan efisien. Siap menghadapi tantangan coding apa pun di level selanjutnya!</p>
+                </div>
+
+            </div>
+        </section>
+
+        <footer id="coop">
+            <h2 class="arcade-font" style="color: var(--neon-cyan); font-size: 1.2rem; margin-bottom: 20px;">NEW CHALLENGER APPROACHING?</h2>
+            <p>Terbuka untuk kolaborasi, pembuatan aplikasi, dan pengembangan website.</p>
+            <a href="https://wa.me/6287847718949" class="btn-arcade" style="border-color: var(--neon-green); color: var(--neon-green); box-shadow: 0 0 10px var(--neon-green), inset 0 0 5px var(--neon-green);">
+                Hubungi Saya
+            </a>
+        </footer>
+    </div>
+
+</body>
+</html>
